@@ -182,9 +182,9 @@ class TestPlace(unittest.TestCase):
                 self.assertTrue(attr in new_d)
         self.assertTrue("__class__" in new_d)
 
-    def test_str(self):
-    """Validates the output of the str method"""
-    place = Place()
-    string = "[Place] ({}) {}".format(place.id, place.__dict__)
-    self.assertEqual(string, str(place))
+   def test_str(self):
+        """Validates the output of the str method"""
+        place = Place()
+        string = "[Place] ({}) {}".format(place.id, place.__dict__)
+        self.assertEqual(string, str(place))
 
