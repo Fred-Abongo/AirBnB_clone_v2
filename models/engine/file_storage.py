@@ -55,8 +55,10 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
-            pass
+        except FileNotFoundError:
+            pass  # File not found, just continue without reloading
+        except Exception as e:
+            print("Error while reloading JSON:", e)
 
     def delete(self, obj=None):
         """removal of onjs"""

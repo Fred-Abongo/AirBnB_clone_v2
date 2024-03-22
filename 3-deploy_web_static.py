@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Fabric script based on 2-do_deploy_web_static.py to create and distribute an archive to web servers
+Fabric script based on 2-do_deploy_web_static.py to create and
+distribute an archive to web servers
 """
 
 from fabric.api import env, local, put, run
