@@ -1,34 +1,14 @@
 #!/usr/bin/env bash
-# Script that sets up your web servers for the deployment of web_static
+# set up dummy html
 
-# Install Nginx if it is not already installed
-if ! command -v nginx &>/dev/null; then
-    sudo apt-get -y update
-    sudo apt-get -y install nginx
-fi
-
-# Create necessary directories if they don't already exist
-sudo mkdir -p /data/web_static/{releases/test,shared}
-
-# Create a fake HTML file for testing
-echo "<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
-
-# Create symbolic link and update ownership
-sudo ln -sf /data/web_static/releases/test /data/web_static/current
-sudo chown -R ubuntu:ubuntu /data/
-
-# Update Nginx configuration
-config="location /hbnb_static {
-    alias /data/web_static/current/;
-}
-"
-sudo sed -i "/server_name _;/a ${config}" /etc/nginx/sites-available/default
-
-# Restart Nginx
+server="\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}"
+file="/etc/nginx/sites-available/default"
+sudo apt-get update -y
+sudo apt-get install nginx -y
+sudo mkdir -p "/data/web_static/releases/test/"
+sudo mkdir "/data/web_static/shared/"
+echo "Holberton" > "/data/web_static/releases/test/index.html"
+rm -f "/data/web_static/current"; ln -s "/data/web_static/releases/test/" "/data/web_static/current"
+sudo chown -hR ubuntu:ubuntu "/data/"
+sudo sed -i "29i\ $server" "$file"
 sudo service nginx restart
