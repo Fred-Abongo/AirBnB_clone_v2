@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Fabric script to create a tgz archive from the contents of the web_static
+Fabric script to create a tgz archive from the content of the web_static
 folder of the AirBnB Clone repository
 """
 
@@ -10,7 +10,7 @@ from os.path import isdir
 
 
 def do_pack():
-    """Generates a tgz archive"""
+    """Generate a tgz archive"""
     try:
         date = datetime.now().strftime("%Y%m%d%H%M%S")
         if isdir("versions") is False:

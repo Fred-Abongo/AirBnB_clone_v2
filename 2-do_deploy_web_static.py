@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Fabric script based on 1-pack_web_static.py to
-distribute an archive to web servers
+distribute an archive to web server
 """
 
 from fabric.api import put, run, env
