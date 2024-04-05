@@ -1,142 +1,100 @@
-<center> <h1>HBNB - The Console</h1> </center>
+//# AirBnB Imitation - The Command Interface
+The console stands as the foremost segment of the AirBnB endeavor at Holberton School, purposed to collectively cover the foundational concepts of advanced programming. The objective of the AirBnB endeavor is to ultimately deploy our server as a modest replica of the AirBnB Website (HBnB). This segment encompasses a command interpreter tailored to manage objects for the AirBnB (HBnB) website.
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+#### Functions of this command interpreter:
+* Establish a new object (e.g., a new User or a new Place)
+* Retrieve an object from a file, a database, etc...
+* Perform operations on objects (count, compute stats, etc...)
+* Modify attributes of an object
+* Eradicate an object
 
----
+## Table of Contents
+* [Environment](#environment)
+* [Installation](#installation)
+* [File Descriptions](#file-descriptions)
+* [Usage](#usage)
+* [Examples of Usage](#examples-of-usage)
+* [Issues](#issues)
+* [Authors](#authors)
+* [License](#license)
 
-<center><h3>Repository Contents by Project Task</h3> </center>
+## Environment
+This endeavor is interpreted and tested on Ubuntu 14.04 LTS utilizing Python 3 (version 3.4.3).
 
-| Tasks | Files | Description |
-| ----- | ----- | ------ |
-| 0: Authors/README File | [AUTHORS](https://github.com/justinmajetich/AirBnB_clone/blob/dev/AUTHORS) | Project authors |
-| 1: Pep8 | N/A | All code is pep8 compliant|
-| 2: Unit Testing | [/tests](https://github.com/justinmajetich/AirBnB_clone/tree/dev/tests) | All class-defining modules are unittested |
-| 3. Make BaseModel | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a parent class to be inherited by all model classes|
-| 4. Update BaseModel w/ kwargs | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Add functionality to recreate an instance of a class from a dictionary representation|
-| 5. Create FileStorage class | [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/_ _init_ _.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/__init__.py) [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a class to manage persistent file storage system|
-| 6. Console 0.0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Add basic functionality to console program, allowing it to quit, handle empty lines and ^D |
-| 7. Console 0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Update the console with methods allowing the user to create, destroy, show, and update stored data |
-| 8. Create User class | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) | Dynamically implements a user class |
-| 9. More Classes | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/place.py) [/models/city.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/city.py) [/models/amenity.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/amenity.py) [/models/state.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/state.py) [/models/review.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/review.py) | Dynamically implements more classes |
-| 10. Console 1.0 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) | Update the console and file storage system to work dynamically with all  classes update file storage |
-<br>
-<br>
-<center> <h2>General Use</h2> </center>
+## Installation
+* Replicate this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
+* Access the AirBnB directory: `cd AirBnB_clone`
+* Launch hbnb (interactively): `./console` and input command
+* Execute hbnb (non-interactively): `echo "<command>" | ./console.py`
 
-1. First clone this repository.
+## File Descriptions
+[console.py](console.py) - The console serves as the entry point of the command interpreter. 
+List of commands supported by this console presently:
+* `EOF` - ceases console operation 
+* `quit` - ceases console operation
+* `<emptyline>` - supersedes default emptyline method and takes no action
+* `create` - Creates a new instance of `BaseModel`, saves it (to the JSON file), and prints the id
+* `destroy` - Deletes an instance based on the class name and id (saves the change into the JSON file). 
+* `show` - Prints the string representation of an instance based on the class name and id.
+* `all` - Prints all string representations of all instances based or not on the class name. 
+* `update` - Updates an instance based on the class name and id by adding or updating attributes (saves the change into the JSON file). 
 
-3. Once the repository is cloned locate the "console.py" file and run it as follows:
-```
-/AirBnB_clone$ ./console.py
-```
-4. When this command is run the following prompt should appear:
-```
-(hbnb)
-```
-5. This prompt designates you are in the "HBnB" console. There are a variety of commands available within the console program.
+#### `models/` directory encompasses classes employed for this project:
+[base_model.py](/models/base_model.py) - The BaseModel class from which future classes will derive
+* `def __init__(self, *args, **kwargs)` - Initialization of the base model
+* `def __str__(self)` - String representation of the BaseModel class
+* `def save(self)` - Updates the attribute `updated_at` with the current datetime
+* `def to_dict(self)` - Returns a dictionary containing all keys/values of the instance
 
-##### Commands
-    * create - Creates an instance based on given class
+Classes inherited from Base Model:
+* [amenity.py](/models/amenity.py)
+* [city.py](/models/city.py)
+* [place.py](/models/place.py)
+* [review.py](/models/review.py)
+* [state.py](/models/state.py)
+* [user.py](/models/user.py)
 
-    * destroy - Destroys an object based on class and UUID
+#### `/models/engine` directory houses the File Storage class that manages JSON serialization and deserialization :
+[file_storage.py](/models/engine/file_storage.py) - Serializes instances to a JSON file & deserializes back to instances
+* `def all(self)` - Returns the dictionary __objects
+* `def new(self, obj)` - Sets in __objects the obj with key <obj class name>.id
+* `def save(self)` - Serializes __objects to the JSON file (path: __file_path)
+* ` def reload(self)` -  Deserializes the JSON file to __objects
 
-    * show - Shows an object based on class and UUID
+#### `/tests` directory holds all unit test cases for this project:
+[/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
+TestBaseModelDocs class:
+* `def setUpClass(cls)`- Preparation for the doc tests
+* `def test_pep8_conformance_base_model(self)` - Confirms models/base_model.py conforms to PEP8
+* `def test_pep8_conformance_test_base_model(self)` - Confirms tests/test_models/test_base_model.py conforms to PEP8
+* `def test_bm_module_docstring(self)` - Checks for the base_model.py module docstring
+* `def test_bm_class_docstring(self)` - Verifies the BaseModel class docstring
+* `def test_bm_func_docstrings(self)` - Ensures presence of docstrings in BaseModel methods
 
-    * all - Shows all objects the program has access to, or all objects of a given class
+TestBaseModel class:
+* `def test_is_base_model(self)` - Confirms instantiation of a BaseModel works
+* `def test_created_at_instantiation(self)` - Checks if created_at is a public instance attribute of type datetime
+* `def test_updated_at_instantiation(self)` - Checks if updated_at is a public instance attribute of type datetime
+* `def test_diff_datetime_objs(self)` - Verifies that two BaseModel instances have different datetime objects
 
-    * update - Updates existing attributes an object based on class name and UUID
+[/test_models/test_amenity.py](/tests/test_models/test_amenity.py) - Contains the TestAmenityDocs class:
+* `def setUpClass(cls)` - Preparation for the doc tests
+* `def test_pep8_conformance_amenity(self)` - Confirms models/amenity.py conforms to PEP8
+* `def test_pep8_conformance_test_amenity(self)` - Confirms tests/test_models/test_amenity.py conforms to PEP8
+* `def test_amenity_module_docstring(self)` - Checks for the amenity.py module docstring
+* `def test_amenity_class_docstring(self)` - Verifies the Amenity class docstring
 
-    * quit - Exits the program (EOF will as well)
+[/test_models/test_city.py](/tests/test_models/test_city.py) - Contains the TestCityDocs class:
+* `def setUpClass(cls)` - Preparation for the doc tests
+* `def test_pep8_conformance_city(self)` - Confirms models/city.py conforms to PEP8
+* `def test_pep8_conformance_test_city(self)` - Confirms tests/test_models/test_city.py conforms to PEP8
+* `def test_city_module_docstring(self)` - Checks for the city.py module docstring
+* `def test_city_class_docstring(self)` - Verifies the City class docstring
 
+[/test_models/test_file_storage.py](/tests/test_models/test_file_storage.py) - Contains the TestFileStorageDocs class:
+* `def setUpClass(cls)` - Preparation for the doc tests
+* `def test_pep8_conformance_file_storage(self)` - Confirms models/file_storage.py conforms to PEP8
+* `def test_pep8_conformance_test_file_storage(self)` - Confirms tests/test_models/test_file_storage.py conforms to PEP8
+* `def test_file_storage_module_docstring(self)` - Checks for the file_storage.py module docstring
+* `def test_file_storage_class_docstring(self)` - Verifies the FileStorage class docstring
 
-##### Alternative Syntax
-Users are able to issue a number of console command using an alternative syntax:
-
-	Usage: <class_name>.<command>([<id>[name_arg value_arg]|[kwargs]])
-Advanced syntax is implemented for the following commands: 
-
-    * all - Shows all objects the program has access to, or all objects of a given class
-
-	* count - Return number of object instances by class
-
-    * show - Shows an object based on class and UUID
-
-	* destroy - Destroys an object based on class and UUID
-
-    * update - Updates existing attributes an object based on class name and UUID
-
-<br>
-<br>
-<center> <h2>Examples</h2> </center>
-<h3>Primary Command Syntax</h3>
-
-###### Example 0: Create an object
-Usage: create <class_name>
-```
-(hbnb) create BaseModel
-```
-```
-(hbnb) create BaseModel
-3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb)                   
-```
-###### Example 1: Show an object
-Usage: show <class_name> <_id>
-
-```
-(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-[BaseModel] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96959), 
-'updated_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96971)}
-(hbnb)  
-```
-###### Example 2: Destroy an object
-Usage: destroy <class_name> <_id>
-```
-(hbnb) destroy BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-** no instance found **
-(hbnb)   
-```
-###### Example 3: Update an object
-Usage: update <class_name> <_id>
-```
-(hbnb) update BaseModel b405fc64-9724-498f-b405-e4071c3d857f first_name "person"
-(hbnb) show BaseModel b405fc64-9724-498f-b405-e4071c3d857f
-[BaseModel] (b405fc64-9724-498f-b405-e4071c3d857f) {'id': 'b405fc64-9724-498f-b405-e4071c3d857f', 'created_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729889), 
-'updated_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729907), 'first_name': 'person'}
-(hbnb)
-```
-<h3>Alternative Syntax</h3>
-
-###### Example 0: Show all User objects
-Usage: <class_name>.all()
-```
-(hbnb) User.all()
-["[User] (99f45908-1d17-46d1-9dd2-b7571128115b) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92071), 'id': '99f45908-1d17-46d1-9dd2-b7571128115b', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92056)}", "[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-
-###### Example 1: Destroy a User
-Usage: <class_name>.destroy(<_id>)
-```
-(hbnb) User.destroy("99f45908-1d17-46d1-9dd2-b7571128115b")
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-###### Example 2: Update User (by attribute)
-Usage: <class_name>.update(<_id>, <attribute_name>, <attribute_value>)
-```
-(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", name "Todd the Toad")
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'name': 'Todd the Toad', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-###### Example 3: Update User (by dictionary)
-Usage: <class_name>.update(<_id>, <dictionary>)
-```
-(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", {'name': 'Fred the Frog', 'age': 9})
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-<br>
